@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple Quiz App</title>
+<style>
+body 
+{
+font-family: Arial;
+background: linear-gradient(to right, #36d1dc, #5b86e5);
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+}
+quiz-box
+{
+background: white;
+padding: 25px;
+width: 350px;
+border-radius: 10px;
+box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+h2 
+{
+margin-bottom: 15px;
+}
+button 
+{
+display: block;
+width: 100%;
+margin: 8px 0;
+padding: 8px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+background: #5b86e5;
+color: white;
+}
+ button:hover
+{
+background: #36d1dc;
+}
+#result
+{
+margin-top: 15px;
+font-weight: bold;
+ }
+</style>
+</head>
+<body>
+<div class="quiz-box">
+    <h2 id="question">Question here</h2>
+    <div id="answers"></div>
+    <p id="result"></p>
+</div>
+<script>
+const quiz = [
+    {
+        question:"What does CPU stand for?",
+        answers: ["Central Process Unit", "Computer Processing Unit", "Central Processing Unit", "Control Processing Unit"],
+        correct: 2
+    },
+    {
+        question: "What does HTML stand for?",
+        answers: ["Hyper Text Markup Language", "High Text Machine Language", "Hyper Tabular Mark Language", "None"],
+        correct: 0
+    },
+    {
+        question: "What is the brain of the computer?",
+        answers: [" Monitor", "CPU", " Keyboard", " Printer"],
+        correct: 1
+    }
+];
+let currentQuestion = 0;
+let score = 0;
+function loadQuestion()
+{
+    const q = quiz[currentQuestion];
+    document.getElementById("question").innerText = q.question;
+    const answersDiv = document.getElementById("answers");
+    answersDiv.innerHTML = "";
+    q.answers.forEach((answer, index) => {
+    const btn = document.createElement("button");
+    btn.innerText = answer;
+    btn.onclick = () => checkAnswer(index);
+    answersDiv.appendChild(btn);
+});
+}
+function checkAnswer(index)
+{
+if (index === quiz[currentQuestion].correct)
+{
+    score++;
+}
+currentQuestion++;
+if (currentQuestion < quiz.length) 
+{
+loadQuestion();
+} 
+else
+{
+document.querySelector(".quiz-box").innerHTML =
+"<h2>Quiz Finished 🎉</h2><p>Your Score: " + score + "/" + quiz.length + "</p>";
+}
+}
+loadQuestion();
+</script>
+</body>
+</html>
