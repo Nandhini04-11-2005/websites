@@ -100,7 +100,7 @@ loadQuestion();
 else
 {
 document.querySelector(".quiz-box").innerHTML =
-"<h2>Quiz Finished 🎉</h2><p>Your Score: " + score + "/" + quiz.length + "</p>";
+"<h2>Quiz Finished</h2><p>Your Score: " + score + "/" + quiz.length + "</p>";
 }
 }
 loadQuestion();
