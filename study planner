@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Smart Study Planner</title>
+<style>
+body
+{
+      font-family: Arial;
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      color: white;
+      text-align: center;
+      padding: 40px;
+}
+input
+{
+      padding: 10px;
+      width: 250px;
+      border-radius: 5px;
+      border: none;
+}
+button 
+{
+      padding: 10px 15px;
+      border: none;
+      background-color: #00c853;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+}
+ul 
+{
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+}
+li
+{
+      background: rgba(255,255,255,0.2);
+      margin: 10px;
+      padding: 10px;
+      border-radius: 5px;
+}
+completed
+{
+      text-decoration: line-through;
+      color: lightgray;
+}
+</style>
+</head>
+<body>
+ <h1> Smart Study Planner</h1>
+<input type="text" id="taskInput" placeholder="Enter study task">
+<button onclick="addTask()">Add</button>
+<h3 id="progress"></h3>
+<ul id="taskList"></ul>
+<script>
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+function saveTasks()
+{
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+function renderTasks()
+{
+const list = document.getElementById("taskList");
+list.innerHTML = "";
+let completedCount = 0;
+tasks.forEach((task, index) =>
+{
+let li = document.createElement("li");
+if (task.completed)
+{
+      li.classList.add("completed");
+      completedCount++;
+ }
+ li.innerHTML =<input type="checkbox" ${task.completed ? "checked" : ""} 
+onclick="toggleTask(${index})">
+${task.text}
+<button onclick="deleteTask(${index})" 
+style="background:red;margin-left:10px;">Delete</button>;
+list.appendChild(li);
+});
+document.getElementById("progress").innerText ="Completed: " + completedCount + " / " + tasks.length;
+ }
+ function addTask() 
+{
+      const input = document.getElementById("taskInput");
+      if (input.value.trim() === "") return;
+      tasks.push({ text: input.value, completed: false });
+      input.value = "";
+      saveTasks();
+      renderTasks();
+}
+function toggleTask(index)
+{
+      tasks[index].completed = !tasks[index].completed;
+      saveTasks();
+      renderTasks();
+}
+function deleteTask(index)
+{
+      tasks.splice(index, 1);
+      saveTasks();
+      renderTasks();
+}
+renderTasks();
+</script>
+</body>
+</html>
