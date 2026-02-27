@@ -47,21 +47,24 @@ font-size: 18px;
 <script>
 function sendAlert()
 {
-if (navigator.geolocation) 
+if (navigator.geolocation)
 {
-navigator.geolocation.getCurrentPosition(function(position) 
+navigator.geolocation.getCurrentPosition(function(position)
 {
-    let lat = position.coords.latitude;
-    let lon = position.coords.longitude;
-    document.getElementById("location").innerHTML =" Your Location: " + lat + ", " + lon;
-    alert(" Emergency Alert Sent Successfully!");
- });
-} 
-else
-{
+let lat = position.coords.latitude;
+let lon = position.coords.longitude;
+let audio = new Audio("alarm.mp3");
+audio.play();
+let mapLink = "https://www.google.com/maps?q=" + lat + "," + lon;
+window.open(mapLink, "_blank");
+alert("Emergency Alert Sent Successfully!");
+  });
+ }
+ else
+ {
   alert("Geolocation not supported in this browser.");
-  }
-  }
+ }
+}
 </script>
 </body>
 </html>
