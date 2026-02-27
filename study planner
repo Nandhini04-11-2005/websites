@@ -40,7 +40,7 @@ li
       padding: 10px;
       border-radius: 5px;
 }
-completed
+.completed
 {
       text-decoration: line-through;
       color: lightgray;
@@ -72,11 +72,14 @@ if (task.completed)
       li.classList.add("completed");
       completedCount++;
  }
- li.innerHTML =<input type="checkbox" ${task.completed ? "checked" : ""} 
-onclick="toggleTask(${index})">
-${task.text}
-<button onclick="deleteTask(${index})" 
-style="background:red;margin-left:10px;">Delete</button>;
+li.innerHTML = `
+  <input type="checkbox" ${task.completed ? "checked" : ""}
+  onclick="toggleTask(${index})">
+  ${task.text}
+  <button onclick="deleteTask(${index})"
+  style="background:red;margin-left:10px;">
+  Delete</button>
+`;
 list.appendChild(li);
 });
 document.getElementById("progress").innerText ="Completed: " + completedCount + " / " + tasks.length;
