@@ -9,7 +9,7 @@ font-family: Arial;
 text-align: center;
 background-color: #f2f2f2;
 }
-container
+.container
 {
 background: white;
 width: 300px;
