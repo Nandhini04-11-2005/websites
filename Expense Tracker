@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Expense Tracker</title>
+<style>
+body
+{
+font-family: Arial;
+background:#f4f4f4;
+text-align:center;
+}
+.container
+{
+background:white;
+width:320px;
+margin:auto;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px gray;
+}
+input
+{
+width:90%;
+padding:8px;
+margin:6px;
+}
+button
+{
+padding:8px 20px;
+background:green;
+color:white;
+border:none;
+cursor:pointer;
+border-radius:5px;
+}
+li
+{
+list-style:none;
+padding:5px;
+border-bottom:1px solid #ccc;
+}
+</style>
+</head>
+<body>
+<h1>Expense Tracker</h1>
+<div class="container">
+<h3>Balance: ₹<span id="balance">0</span></h3>
+<p>Income: ₹<span id="income">0</span></p>
+<p>Expense: ₹<span id="expense">0</span></p>
+<h3>Add Transaction</h3>
+<input type="text" id="text" placeholder="Description">
+<input type="number" id="amount" placeholder="Amount (+income / -expense)">
+<br>
+<button onclick="addTransaction()">Add</button>
+<h3>History</h3>
+<ul id="list"></ul>
+</div>
+<script>
+let balance = 0;
+let income = 0;
+let expense = 0;
+function addTransaction()
+{
+let text = document.getElementById("text").value;
+let amount = Number(document.getElementById("amount").value);
+if(text=="" || amount=="")
+{
+alert("Enter details");
+return;
+}
+let li = document.createElement("li");
+li.innerText = text + " : ₹" + amount;
+document.getElementById("list").appendChild(li);
+balance += amount;
+if(amount > 0)
+{
+income += amount;
+}
+else
+{
+expense += amount;
+}
+document.getElementById("balance").innerText = balance;
+document.getElementById("income").innerText = income;
+document.getElementById("expense").innerText = Math.abs(expense);
+document.getElementById("text").value="";
+document.getElementById("amount").value="";
+}
+</script>
+</body>
+</html>
