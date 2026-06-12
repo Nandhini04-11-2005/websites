@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>What about Today?</title>
+<style>
+*{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+  }
+body
+{
+font-family:'Segoe UI',Arial,sans-serif;
+background:#fffbf2;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:40px 20px;
+min-height:100vh;
+}
+h1{
+  color:#c0392b;
+  margin-bottom:10px;
+  font-size:2.4rem;
+  font-weight:700;
+  }
+p.subtitle{
+  color:#7f8c8d;
+  margin-bottom:30px;
+  ont-size:1.1rem;
+  }
+.filter-section{
+margin-bottom:25px;
+display:flex;
+gap:12px;
+}
+.filter-btn{
+  padding:10px 20px;
+  border:2px solid #e67e22;
+  background:white;
+  color:#e67e22;
+  border-radius:25px;
+  cursor:pointer;
+  font-weight:bold;
+  font-size:0.95rem;
+  transition:all 0.3s ease;
+}
+.filter-btn.active,.filter-btn:hover{
+background:#e67e22;
+color:white;
+box-shadow:0 4px 10px rgba(230, 126, 34, 0.2);
+}
+.recipe-card{
+  background:white;
+  width:100%;
+  max-width:450px;
+  padding:35px;
+  border-radius:20px;
+  box-shadow:0 15px 30px rgba(0, 0, 0, 0.05);
+  text-align:center;
+  border-bottom:8px solid #e67e22;
+  transition:transform 0.3s ease;
+  }
+ .food-emoji{
+      font-size:4.5rem;
+      margin-bottom:15px;
+  }
+  .food-name{
+    color:#2c3e50;
+    font-size:1.8rem;
+    margin-bottom:8px;
+  }
+  .time-tag{
+    display:inline-block;
+    background:#ffeaa7;
+    color:#d35400;
+     padding:5px 14px;
+    border-radius:15px;
+    font-size:0.85rem;
+    font-weight:bold;
+    margin-bottom:25px;
+  }       
+.ingredients-box{
+    text-align:left;
+    background:#fdfbf7;
+    padding:20px;
+    border-radius:12px;
+    border:1px dashed #e67e22;
+  }
+  .ingredients-box h4{
+      color:#d35400;
+      margin-bottom:10px;
+      font-size:1.1rem;
+}
+  .ingredients-box ul{
+        padding-left:20px;
+        color #444;
+        line-height:1.7;
+  }
+  .generate-btn {
+            margin-top:30px;
+            padding:16px 40px;
+            background:#c0392b;
+            color:white;
+            border:none;
+            border-radius:30px;
+            font-size:1.1rem;
+            font-weight:bold;
+            cursor:pointer;
+            box-shadow:0 6px 20px rgba(192, 57, 43, 0.3);
+            transition:all 0.3s ease;
+  }
+  .generate-btn:hover{
+        background:#a93226;
+        transform:translateY(-2px);
+        box-shadow:0 8px 25px rgba(192, 57, 43, 0.5);
+   }
+</style>
+</head>
+<body>
+<h1>Quick Recipe Planner</h1>
+    <p class="subtitle">Find your next meal idea in just one click!</p>
+<div class="filter-section">
+        <button class="filter-btn active" onclick="setCategory('all', event)">All Meals</button>
+        <button class="filter-btn" onclick="setCategory('veg', event)">Vegetarian</button>
+        <button class="filter-btn" onclick="setCategory('nonveg', event)">Non-Veg</button>
+    </div>
+<div class="recipe-card">
+        <div class="food-emoji" id="food-emoji">🍽️</div>
+        <h2 class="food-name" id="food-name">Hungry?</h2>
+        <span class="time-tag" id="food-time">Ready in -- mins</span>
+        <div class="ingredients-box">
+            <h4>Ingredients Needed:</h4>
+            <ul id="food-ingredients">
+          <li>Click the button below to discover a delicious recipe!</li>
+            </ul>
+        </div>
+    </div>
+<button class="generate-btn" onclick="getRandomRecipe()">Show Me A Recipe</button>
+<script>
+       const recipes=[
+            {
+                name:"Classic Bread Omelette",
+                emoji:"🥪",
+                category:"nonveg",
+                time:"5 mins",
+                ingredients:["Bread Slices", "2 Eggs", "Chopped Onions", "Black Pepper & Butter"]
+            },
+            {
+                name:"Cheesy Instant Noodles",
+                emoji:"🍜",
+                category:"veg",
+                time:"7 mins",
+                ingredients:["Noodle Packet", "1 Cheese Slice", "Mixed Herbs/Chilli Flakes", "Butter"]
+            },
+            {
+                name:"Crispy Crispy Bread Pizza",
+                emoji:"🍕",
+                category:"veg",
+                time:"10 mins",
+                ingredients:["Bread Slices", "Pizza or Tomato Sauce", "Capsicum & Sweet Corn", "Mozzarella Cheese"]
+            },
+            {
+                name:"Garlic Butter Fried Rice",
+                emoji:"🍚",
+                category:"veg",
+                time:"12 mins",
+                ingredients:["Cooked Rice", "Finely Chopped Garlic", "Butter / Cooking Oil", "Spring Onions"]
+            },
+            {
+                name:"Spiced Egg Bhurji",
+                emoji:"🍳",
+                category:"nonveg",
+                time:"8 mins",
+                ingredients:["3 Fresh Eggs", "Onions & Tomatoes", "Basic Spices (Turmeric, Chilli Powder)", "Fresh Coriander"]
+            }
+        ];
+let currentCategory = 'all';
+function setCategory(cat, event){
+            currentCategory=cat;
+            document.querySelectorAll('.filter-btn').forEach(btn =>btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+function getRandomRecipe(){
+            const filteredRecipes=recipes.filter(r =>currentCategory==='all'||r.category===currentCategory);
+            const randomIndex=Math.floor(Math.random()*filteredRecipes.length);
+            const selectedRecipe=filteredRecipes[randomIndex];
+document.getElementById('food-emoji').innerText=selectedRecipe.emoji;
+document.getElementById('food-name').innerText=selectedRecipe.name;
+document.getElementById('food-time').innerText=`Ready in ${selectedRecipe.time}`;
+const ingredientsList=document.getElementById('food-ingredients');
+ingredientsList.innerHTML=""; 
+selectedRecipe.ingredients.forEach(item=>{
+    const li=document.createElement('li');
+     li.innerText=item;
+     ingredientsList.appendChild(li);
+});
+}
+</script>
+</body>
+</html>
