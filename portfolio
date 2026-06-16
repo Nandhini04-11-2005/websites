@@ -23,12 +23,16 @@ border-radius: 10px;
 <div class="box">
 <h2>About Me</h2>
 <p>I am a passionate Computer Science Engineering student interested in Web Development and Software Development</p>
+<p>
 <a href="https://github.com/Nandhini04-11-2005">
 GitHub Profile
 </a>
+</p>
+<p>
 <a href="https://www.linkedin.com/in/nandhini-r-156615372">
 LinkedIn Profile
 </a>
+</p>
 <h2>Projects</h2>
 <h3>Expense Tracker</h3>
 <p>Track income and expenses using HTML, CSS and JavaScript</p>
@@ -40,6 +44,7 @@ LinkedIn Profile
 <p>C, Java, HTML, CSS</p>
 </div>
 <div class="box">
+<h2>Contact</h2>
 <p>Email: nandhinitamil4115@gmail.com</p>
 </div>
 </body>
