@@ -22,7 +22,18 @@ border-radius: 10px;
 <h1>Welcome to My Portfolio</h1>
 <div class="box">
 <h2>About Me</h2>
-<p>I am a 3rd year CSE student</p>
+<p>I am a passionate Computer Science Engineering student interested in Web Development and Software Development</p>
+<a href="https://github.com/Nandhini04-11-2005">
+GitHub Profile
+</a>
+<a href="https://www.linkedin.com/in/nandhini-r-156615372">
+LinkedIn Profile
+</a>
+<h2>Projects</h2>
+<h3>Expense Tracker</h3>
+<p>Track income and expenses using HTML, CSS and JavaScript</p>
+<h3>Job Application Tracker</h3>
+<p>Manage job applications and interview status</p>
 </div>
 <div class="box">
 <h2>Skills</h2>
